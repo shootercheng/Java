@@ -65,21 +65,21 @@ public class MatrixTest {
             throw new RuntimeException("矩阵相乘不符合规则!");
         }
         int matarow = getRow(mata);
-        int matacolumn = getColumn(mata);
-        int matbrow = getRow(matb);
+//        int matacolumn = getColumn(mata);
+//        int matbrow = getRow(matb);
         int matbcolumn = getColumn(matb);
-        int minrow = matarow;
-        int mincolumn = matacolumn;
-        if(matarow > matbrow){
-            minrow = matarow;
-        }
-        if(matacolumn > matbcolumn){
-            mincolumn = matbcolumn;
-        }
-        int[][] matresult = new int[minrow][mincolumn];
-        //根据矩阵的结果列表计算矩阵'
-        for(int i = 0; i < minrow; i++){
-            for(int j = 0; j < mincolumn; j++){
+//        int minrow = matarow;
+//        int mincolumn = matacolumn;
+//        if(matarow > matbrow){
+//            minrow = matarow;
+//        }
+//        if(matacolumn > matbcolumn){
+//            mincolumn = matbcolumn;
+//        }
+        int[][] matresult = new int[matarow][matbcolumn];
+        //根据矩阵的结果列表计算矩阵
+        for(int i = 0; i < matarow; i++){
+            for(int j = 0; j < matbcolumn; j++){
                 matresult[i][j] = getRowMultiColum(mata[i], getColumnArray(matb,j));
             }
         }
@@ -97,23 +97,11 @@ public class MatrixTest {
     }
 
     public static void main(String[] args){
-//        int[][] mata = {{1,2,3},{4,5,6},{3,4}};
-//        int[][] matb = new int[2][3];
-//        System.out.println(mata.length);
-//        for(int i = 0; i < mata.length; i++){
-//            System.out.println(mata[i].length);
-//        }
         MatrixTest mt = new MatrixTest();
-//        System.out.println(mt.checkMatColumn(mata));
-//        mt.multipleMat(mata,matb);
-        int mata[][] = {{1,2},{1,2}};
-        int matb[][] = {{1,2},{1,2}};
-//        mt.displayMat(matb);
-//        int[] array0 = mt.getColumnArray(mata,1);
-//        for(int i = 0; i < array0.length; i++){
-//            System.out.println(array0[i]);
-//        }
+        int[][] matt = {{1,2,3},{4,5,6},{3,4}};
+        System.out.println(mt.checkMatColumn(matt));
+        int mata[][] = {{1,2},{1,2},{1,2}};
+        int matb[][] = {{1},{2}};
         mt.multipleMat(mata, matb);
-
     }
 }
