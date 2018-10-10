@@ -1,0 +1,112 @@
+/**
+ * 
+ * @author WX615626
+ * @date 2018年10月10日
+ *
+ */
+public class FileUtil {
+	
+	 /** 
+     * 以行为单位读取文件，常用于读面向行的格式化文件 
+     */  
+    public static void readFileByLines(String fileName) {  
+        File file = new File(fileName); 
+        //乱码问题
+//        new InputStreamReader(new FileInputStream(file),"UTF-8");
+//        new FileReader(file);
+        BufferedReader reader = null;  
+        try {  
+//            System.out.println("以行为单位读取文件内容，一次读一整行：");  
+            reader = new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
+            String tempString = null;  
+            int line = 1;  
+            // 一次读入一行，直到读入null为文件结束  
+            while ((tempString = reader.readLine()) != null) {  
+                // 显示行号  
+                System.out.println("line " + line + ": " + tempString);  
+                line++;  
+            }  
+            reader.close();  
+        } catch (IOException e) {  
+            e.printStackTrace();  
+        } finally {  
+            if (reader != null) {  
+                try {  
+                    reader.close();  
+                } catch (IOException e1) {
+                	
+                }  
+            }  
+        }  
+    }
+    
+    /**
+     * 字节形式读取文件
+     * @param fileName
+     */
+    public static void readFileByChars(String fileName) {  
+        File file = new File(fileName);
+        Reader reader = null;  
+        try {  
+            System.out.println("以字符为单位读取文件内容，一次读多个字节：");  
+            // 一次读多个字符  
+            char[] tempchars = new char[30];  
+            int charread = 0;  
+            reader = new InputStreamReader(new FileInputStream(fileName),"UTF-8");
+            // 读入多个字符到字符数组中，charread为一次读取字符数  
+            while ((charread = reader.read(tempchars)) != -1) {  
+                // 同样屏蔽掉\r不显示  
+                if ((charread == tempchars.length)  
+                        && (tempchars[tempchars.length - 1] != '\r')) {  
+                    System.out.print(tempchars);  
+                } else {  
+                    for (int i = 0; i < charread; i++) {  
+                        if (tempchars[i] == '\r') {  
+                            continue;  
+                        } else {  
+                            System.out.print(tempchars[i]);  
+                        }  
+                    }  
+                }  
+            }  
+  
+        } catch (Exception e1) {  
+            e1.printStackTrace();  
+        } finally {  
+            if (reader != null) {  
+                try {  
+                    reader.close();  
+                } catch (IOException e1) {  
+                }  
+            }  
+        }  
+    }
+    
+    /**
+     * 一次读取整个文件
+     * @param filepath
+     * @param encoding
+     * @return
+     * @throws IOException
+     */
+    public static String readFileAll(String filepath, String encoding) throws IOException{
+//		String encoding = "ISO-8859-1";
+		File file = new File(filepath);
+		Long filelength = file.length();
+		byte[] filecontent = new byte[filelength.intValue()];
+		FileInputStream inputStream = null;
+		String readResult = "";
+		try {
+			inputStream = new FileInputStream(file);
+			inputStream.read(filecontent);
+			readResult = new String(filecontent, encoding);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if(inputStream != null){
+				inputStream.close();
+			}
+		}
+		return readResult;
+    }
+}    
