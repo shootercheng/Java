@@ -1,0 +1,4 @@
+---25天计算时候， int 类型越界,变成了负数，哈哈...
+System.out.println(DateUtil.ONE_DAY_INTERVAL * 1000 * (30 - 5));
+
+//-2134967296
