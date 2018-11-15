@@ -2,3 +2,6 @@
 System.out.println(DateUtil.ONE_DAY_INTERVAL * 1000 * (30 - 5));
 
 //-2134967296
+
+----在运行乘法时转换为Long 类型
+long daylong = endTime - DateUtil.ONE_DAY_INTERVAL * 1000L * (30 - 5) ;
