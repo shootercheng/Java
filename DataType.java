@@ -50,7 +50,8 @@ public class DataType {
         System.out.println(max);
         long endTime = DateUtil.getPreGranularityTime(System.currentTimeMillis(), DateUtil.ONE_DAY_INTERVAL);
         System.out.println(DateUtil.formatMillisecondstoString(endTime, DateUtil.YYYY_MM_DD_HH_MM_SS));
-        //22天    23天    24天     25天错误，为啥？？？？       ---> 一段经典的问题
+        //22天    23天    24天     25天错误，为啥？？？？       
+        // DateUtil.ONE_DAY_INTERVAL * 1000 * (30 - 5) int类型越界，变成了 -2134967296
 //        long daylong = endTime - DateUtil.ONE_DAY_INTERVAL * 1000 * (30 - 5);
         long daylong = endTime - DateUtil.ONE_DAY_INTERVAL * 1000 * (30 - 6);
         daylong = daylong - DateUtil.ONE_DAY_INTERVAL * 1000 * 6;
