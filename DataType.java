@@ -53,8 +53,9 @@ public class DataType {
         //22天    23天    24天     25天错误，为啥？？？？       
         // DateUtil.ONE_DAY_INTERVAL * 1000 * (30 - 5) int类型越界，变成了 -2134967296
 //        long daylong = endTime - DateUtil.ONE_DAY_INTERVAL * 1000 * (30 - 5);
-        long daylong = endTime - DateUtil.ONE_DAY_INTERVAL * 1000 * (30 - 6);
-        daylong = daylong - DateUtil.ONE_DAY_INTERVAL * 1000 * 6;
+          long daylong = endTime - DateUtil.ONE_DAY_INTERVAL * 1000L * (30 - 5);
+//        long daylong = endTime - DateUtil.ONE_DAY_INTERVAL * 1000 * (30 - 6);
+//        daylong = daylong - DateUtil.ONE_DAY_INTERVAL * 1000 * 6;
         System.out.println(DateUtil.formatMillisecondstoString(daylong,DateUtil.YYYY_MM_DD_HH_MM_SS));
         Date date = DateUtil.convertMillisecondstoDate(DateUtil.getDayStartTime(System.currentTimeMillis()));
         Date dateBefore = getDateBefore(date, 210);
