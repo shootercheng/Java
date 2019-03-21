@@ -340,7 +340,8 @@ public class MapUtil {
             Map<String, Long> map = remoteList.get(i);
             long logtime = map.get("time");
             long filesize = map.get("filesize");
-            if(logtime < startTime || logtime > endTime){
+            // 大于最后一个点 加一个周期的判断
+            if(logtime < startTime || logtime > timeslist.get(timeslist.size() - 1)){
                 continue;
             }
             long axeTime = findLogsegtime(logtime, timeslist, intervalsec);
