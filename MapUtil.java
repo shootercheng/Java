@@ -153,7 +153,7 @@ public class MapUtil {
         //月粒度需要单独计算
         if(intervalsec < THIRTY_DAY_INTERVAL) {
             long preNode = startTime;
-            for (int i = 1; i < rate - 1; i++) {
+            for (int i = 1; i < rate + 1; i++) {
                 long curNode = preNode + intervalsec * 1000;
                 timeslist.add(curNode);
                 preNode = curNode;
@@ -161,14 +161,14 @@ public class MapUtil {
         }else if(intervalsec == THIRTY_DAY_INTERVAL){
             Date startdate = convertMillisecondstoDate(startTime);
             Date preNode = startdate;
-            for(int i = 1; i < rate - 1; i++){
+            for(int i = 1; i < rate + 1; i++){
                 Date curNode = getChangeYearMonthDay(preNode, 0, 1, 0);
                 long curDateL = convertDatetoMillisecond(curNode);
                 timeslist.add(curDateL);
                 preNode = curNode;
             }
         }
-        timeslist.add(endtime);
+//        timeslist.add(endtime);
         return timeslist;
     }
 
@@ -218,8 +218,9 @@ public class MapUtil {
 
     public static Map<Long, BigInteger> initMapPoint(List<Long> times){
         Map<Long, BigInteger> mapPoint = new HashMap<Long, BigInteger>();
-        for(Long time : times){
-            mapPoint.put(time, new BigInteger("0"));
+        // 需要减去多产生的一个点
+        for(int i = 0; i < times.size() - 1; i++){
+            mapPoint.put(times.get(i), new BigInteger("0"));
         }
         return mapPoint;
     }
@@ -234,8 +235,8 @@ public class MapUtil {
 
     public static List<Map<String, Long>> createRemoteData() throws ParseException{
         List<Map<String, Long>> listMap = new ArrayList<Map<String,Long>>();
-        String[] times = {"2019-3-21 09:00:00","2019-3-21 08:56:00",
-                "2019-3-21 09:10:00","2019-3-21 09:15:00"};
+        String[] times = {"2019-3-21 19:00:00","2019-3-21 19:54:00",
+                "2019-3-21 19:10:00","2019-3-21 19:02:00"};
         String[] filesizes = {"1","1","1","1"};
         for(int i = 0; i < 4; i++) {
             Map<String,Long> map = new HashMap<String,Long>();
@@ -261,9 +262,12 @@ public class MapUtil {
      * @return
      */
     public static long findLogsegtime(long milliseconds, List<Long> times, int intervalsec) {
-        for(Long time : times) {
-            long start = time;
-            long end = start + intervalsec * 1000L;
+        if(times == null){
+            return 0L;
+        }
+        for(int i = 0; i < times.size() - 1; i++){
+            long start = times.get(i);
+            long end = times.get(i+1);
             if(milliseconds >= start && milliseconds < end) {
                 return start;
             }
