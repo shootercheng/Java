@@ -261,7 +261,7 @@ public class MapUtil {
      * @param intervalsec
      * @return
      */
-    public static long findLogsegtime(long milliseconds, List<Long> times, int intervalsec) {
+    public static long findLogsegtime(long milliseconds, List<Long> times) {
         if(times == null){
             return 0L;
         }
@@ -344,7 +344,7 @@ public class MapUtil {
             if(logtime < startTime || logtime > timeslist.get(timeslist.size() - 1)){
                 continue;
             }
-            long axeTime = findLogsegtime(logtime, timeslist, intervalsec);
+            long axeTime = findLogsegtime(logtime, timeslist);
             if(axeTime != 0L) {
                 BigInteger oldValue = mapPoint.get(axeTime);
                 mapPoint.put(axeTime, oldValue.add(new BigInteger(String.valueOf(filesize))));
